@@ -58,9 +58,8 @@ avec 2 murs côte à côte*/
 void getint(int *result){ /* fonction qui demande un nombre strictement positif 
 à l'utilisateur et s'assure de la validité de la réponse*/
     int error_detector = scanf("%d",result);
-    printf("%d\n",error_detector);
     while (!error_detector || *result<=0){
-        printf("Please enter a realistic number of player : ");
+        printf("Please enter a fitting number : ");
         if(!error_detector){
             while(getchar() !='\n');  // enlève tous les caractères bloqués dans le tamponn car inutilisé par scanf
         //pour qu'on puisse reentrer une nouvelle valeur dans number_player, sans cela le programme boucle
@@ -294,15 +293,15 @@ int is_target_valid(Tile **map,int size_map, int row, int column){
 }
 
 
-void  random_wall(int *tab,int size_map){//remplie un tableau avec des coordonnées alétoire pour des murs
+void  random_wall(int *array,int size_map){//remplie un arrayleau avec des coordonnées alétoire pour des murs
     if (size_map>3)//Les 2 if sont uniquement pour des tests sur des maps de size < 15
-        tab[0] = rdm(2,size_map-3);
+        array[0] = rdm(2,size_map-3);
     if(size_map>5){
         do{
-            tab[0] = rdm(2,size_map-2);
-            tab[1]= rdm(2,size_map-2);
+            array[0] = rdm(2,size_map-2);
+            array[1]= rdm(2,size_map-2);
         }
-        while(abs(tab[0]-tab[1])<2);
+        while(abs(array[0]-array[1])<2);
     }
 
 }
@@ -323,23 +322,23 @@ void random_robot(Tile **map, int size_map, int* x, int* y){ // donne les coordo
 
 
 void add_map_side_walls(Tile **map, int size_map){
-    int tab[2] = {0};
+    int array[2] = {0};
 
-    random_wall(tab,size_map);
+    random_wall(array,size_map);
     for(int i=0;i<2;i++)// murs du haut vers la gauche
-        add_wall(map,size_map,0,tab[i],4);
+        add_wall(map,size_map,0,array[i],4);
 
-    random_wall(tab,size_map); // on change les murs aléatoires pour chaque côté de la grille
+    random_wall(array,size_map); // on change les murs aléatoires pour chaque côté de la grille
     for(int i=0;i<2;i++)// murs du bas vers la gauche
-        add_wall(map,size_map,size_map-1,tab[i],4);
+        add_wall(map,size_map,size_map-1,array[i],4);
     
-    random_wall(tab,size_map);
+    random_wall(array,size_map);
     for(int i=0;i<2;i++)// murs de gauche vers le haut
-        add_wall(map,size_map,tab[i],0,1);
+        add_wall(map,size_map,array[i],0,1);
 
-    random_wall(tab,size_map);
+    random_wall(array,size_map);
     for(int i=0;i<2;i++)// murs de droite vers le haut
-        add_wall(map,size_map,tab[i],size_map-1,1);
+        add_wall(map,size_map,array[i],size_map-1,1);
 }
 
 void add_map_target(Tile **map, int size_map){
@@ -362,74 +361,100 @@ void add_map_target(Tile **map, int size_map){
     }
 }
 
-void add_map_robot(Tile **map, int size_map, int tab[4][2]){
+void add_map_robot(Tile **map, int size_map, int array[4][2]){
     int row,column;
     for (int n=0;n<4;n++){ 
         random_robot(map,size_map,&row,&column);
-        tab[n][0]=row;
-        tab[n][1]=column;
+        array[n][0]=row;
+        array[n][1]=column;
         map[row][column].robot = n+65;
     }
 }
 
 
-int go_up (Tile **map, int size_map,int tab[4][2], int bot, int distance){
-    if (is_wall(map,size_map,tab[bot][0],tab[bot][1],1))
+int go_up (Tile **map, int size_map,int array[4][2], int bot, int distance){
+    if (is_wall(map,size_map,array[bot][0],array[bot][1],1))
         return distance;
-    if (map[tab[bot][0]][tab[bot][1]+1].robot != 64)
+    if (map[array[bot][0]][array[bot][1]+1].robot != 64)
         return distance;
 
-    map[tab[bot][0]-1][tab[bot][1]].robot = map[tab[bot][0]][tab[bot][1]].robot;
-    map[tab[bot][0]][tab[bot][1]].robot = 64;
-    tab[bot][0] -= 1;
+    map[array[bot][0]-1][array[bot][1]].robot = map[array[bot][0]][array[bot][1]].robot;
+    map[array[bot][0]][array[bot][1]].robot = 64;
+    array[bot][0] -= 1;
 
-    return go_up(map,size_map,tab,bot,distance+1);
+    return go_up(map,size_map,array,bot,distance+1);
 }
 
-int go_right (Tile **map, int size_map,int tab[4][2], int bot, int distance){
-    if (is_wall(map,size_map,tab[bot][0],tab[bot][1],2))
+int go_right (Tile **map, int size_map,int array[4][2], int bot, int distance){
+    if (is_wall(map,size_map,array[bot][0],array[bot][1],2))
         return distance;
-    if (map[tab[bot][0]][tab[bot][1]+1].robot != 64)
+    if (map[array[bot][0]][array[bot][1]+1].robot != 64)
         return distance;
 
-    map[tab[bot][0]][tab[bot][1]+1].robot = map[tab[bot][0]][tab[bot][1]].robot;
-    map[tab[bot][0]][tab[bot][1]].robot = 64;
-    tab[bot][1] += 1;
+    map[array[bot][0]][array[bot][1]+1].robot = map[array[bot][0]][array[bot][1]].robot;
+    map[array[bot][0]][array[bot][1]].robot = 64;
+    array[bot][1] += 1;
 
-    return go_right(map,size_map,tab,bot,distance+1);
+    return go_right(map,size_map,array,bot,distance+1);
 }
 
-int go_down (Tile **map, int size_map,int tab[4][2], int bot, int distance){
-    if (is_wall(map,size_map,tab[bot][0],tab[bot][1],3))
+int go_down (Tile **map, int size_map,int array[4][2], int bot, int distance){
+    if (is_wall(map,size_map,array[bot][0],array[bot][1],3))
         return distance;
-    if (map[tab[bot][0]][tab[bot][1]+1].robot != 64)
+    if (map[array[bot][0]][array[bot][1]+1].robot != 64)
         return distance;
 
-    map[tab[bot][0]+1][tab[bot][1]].robot = map[tab[bot][0]][tab[bot][1]].robot;
-    map[tab[bot][0]][tab[bot][1]].robot = 64;
-    tab[bot][0] += 1;
+    map[array[bot][0]+1][array[bot][1]].robot = map[array[bot][0]][array[bot][1]].robot;
+    map[array[bot][0]][array[bot][1]].robot = 64;
+    array[bot][0] += 1;
 
-    return go_down(map,size_map,tab,bot,distance+1);
+    return go_down(map,size_map,array,bot,distance+1);
 }
 
-int go_left (Tile **map, int size_map,int tab[4][2], int bot, int distance){
-    if (is_wall(map,size_map,tab[bot][0],tab[bot][1],4))
+int go_left (Tile **map, int size_map,int array[4][2], int bot, int distance){
+    if (is_wall(map,size_map,array[bot][0],array[bot][1],4))
         return distance;
-    if (map[tab[bot][0]][tab[bot][1]+1].robot != 64)
+    if (map[array[bot][0]][array[bot][1]+1].robot != 64)
         return distance;
 
-    map[tab[bot][0]][tab[bot][1]-1].robot = map[tab[bot][0]][tab[bot][1]].robot;
-    map[tab[bot][0]][tab[bot][1]].robot = 64;
-    tab[bot][1] -= 1;
+    map[array[bot][0]][array[bot][1]-1].robot = map[array[bot][0]][array[bot][1]].robot;
+    map[array[bot][0]][array[bot][1]].robot = 64;
+    array[bot][1] -= 1;
 
-    return go_left(map,size_map,tab,bot,distance+1);
+    return go_left(map,size_map,array,bot,distance+1);
+}
+
+int pick_min_array(int *array,int size_array,int *player_index){// Selection au hasard le joueur qui jouera parmi ceux à égalité
+
+    int mini = array[0];
+    for (int i=1; i<size_array; i++){// on parcourt une première fois le tableau pour trouver le minimum
+        if (array[i]<mini)
+            mini = array[i];
+    }
+
+    int count = 0;
+    for (int i=0; i<size_array; i++){// une deuxième fois pour compter les potentielles égalités
+        if (array[i]==mini)
+            count ++;
+    }
+
+    int roll_dices = rdm(1,count);
+    for (int i=0; i<size_array; i++){// une dernière fois pour renvoyer le joueur choisis au hasard parmi les églités
+        if (roll_dices==1){
+            *player_index = i;
+            break;
+        }
+        roll_dices--;
+    }
+
+    return mini;
 }
 
 void main(){
 
 	srand(time(NULL));
     
-    /*
+    
     int number_player;
     printf("Please enter a number of player : ");
     getint(&number_player);
@@ -438,8 +463,20 @@ void main(){
     printf("Please enter a number of rounds : ");
     getint(&rounds);
     printf("%d Players, %d rounds\n",number_player, rounds);
-    */
 
+    int difficulty_level, timer;
+    do{
+        printf("Please enter a difficulty level (1 to 3): ");
+        getint(&difficulty_level);
+    }
+    while(difficulty_level>3);
+    
+    if (difficulty_level==1)
+        timer = 60; // en seconde
+    else if (difficulty_level==2)
+        timer = 40; // en seconde
+    else
+        timer = 20; // en seconde
     
     int size_map = rdm(15,20);
     size_map = 15;
@@ -457,17 +494,84 @@ void main(){
         }
     }
 
+
+    int array_bot[4][2]; // tableau contenant les coordonnées de chaque robot
+
+    //Crétion du plateau
     create_map(map,size_map);
-
-    map[0][0].target = size_map;
-    int tab_bot[4][2]; // tableau contenant les coordonnées de chaque robot
-
     add_map_side_walls(map,size_map);
     add_map_target(map,size_map);
-    add_map_robot(map,size_map, tab_bot);
-    
+    add_map_robot(map,size_map, array_bot);
     print_map(map,size_map);
+
+
+    int pick_robot, pick_target, player_index, minimun_moves, player_order, situation;
+
+    int *moves_needed = malloc(number_player*4);
+    if (moves_needed == NULL) {
+            printf("Error, can't allocate memory.\n");
+            exit(EXIT_FAILURE);
+        }
+
+    pick_robot = rdm(0,3);
+    do{pick_target = rdm(1,18);}
+    while(map[array_bot[0][0]][array_bot[0][1]].target == pick_target || // vérifie qu'il ny ai aucun robot sur la cible choisi
+        map[array_bot[1][0]][array_bot[1][1]].target == pick_target ||
+        map[array_bot[2][0]][array_bot[2][1]].target == pick_target ||
+        map[array_bot[3][0]][array_bot[3][1]].target == pick_target);
     
+
+    printf("Robot %c, target %d, Time %ds: \n",map[array_bot[pick_robot][0]][array_bot[pick_robot][1]].robot,pick_target,timer);
+    Sleep(timer*100);// Temps d'observation
+
+    // Affichage de masse pour cacher la map
+    for(int j=0;j<10;j++)
+        printf("\n\n\n\n\n\n\n\n\n\n"); // Saute 10 lignes, 100 lignes au total
+    
+    printf("Time's up !\n");
+    for(int j = 1; j<=number_player;j++){
+        printf("Player %d, enter your amount of movements:");
+        getint(moves_needed+(j-1));
+    }
+    minimun_moves = pick_min_array(moves_needed,number_player,&player_index);
+    print_map(map,size_map);
+
+    for(int j=0;j<minimun_moves;j++){
+        do{
+        printf("PLayer %d, enter movement %d (1 for up, 2 for right, 3 down and 4 left) : ",player_index,j);
+        getint(&player_order);
+        }
+        while(player_order<1||player_order>4);
+
+        switch (player_order){
+		case 1:
+			go_up(map,size_map,array_bot,pick_robot,0);
+			break;
+		case 2:
+			go_right(map,size_map,array_bot,pick_robot,0);
+			break;
+        case 3:
+			go_down(map,size_map,array_bot,pick_robot,0);
+			break;
+        case 4:
+			go_left(map,size_map,array_bot,pick_robot,0);
+			break;
+        }
+        
+        print_map(map,size_map);
+        if (map[array_bot[pick_robot][0]][array_bot[pick_robot][1]].target == pick_target){
+            if(j==minimun_moves-1)
+                situation = 1;
+            else
+                situation = 3;
+        }
+        printf("Move remaining : %d\n",minimun_moves-j-1);
+    }
+    situation = 2;
+
+    printf("%d", situation);
+    
+
     for (int i=0; i<size_map;i++){
         free(map[i]);
     }
