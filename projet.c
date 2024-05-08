@@ -4,24 +4,6 @@
 #include <time.h>
 #include <math.h>
 
-#ifndef COLOURS
-#define COLOURS
-
-// Efface l'écran et replace le curseur en haut à gauche
-#define clrscr() printf("\033[H\033[2J")
-
-// Sélection de couleurs
-#define colour(param) printf("\033[%sm",param)
-/*   param devant être un const char *, vide (identique à "0") ou formé
-     d'une où plusieurs valeurs séparées par des ; parmi
-         0  réinitialisation         1  haute intensité (des caractères)
-         5  clignotement             7  video inversé
-         30, 31, 32, 33, 34, 35, 36, 37 couleur des caractères
-         40, 41, 42, 43, 44, 45, 46, 47 couleur du fond
-            les couleurs, suivant la logique RGB, étant respectivement
-               noir, rouge, vert, jaune, bleu, magenta, cyan et blanc */
-
-#endif
 
 typedef struct
 {
@@ -552,8 +534,7 @@ void main(){
         }
 
     for(int r=1; r<=rounds;r++){
-
-        printf("Round %d\n",r);
+        printf("Round %d\n\n",r);
 
         pick_robot = rdm(0,3); // Choix du robot 
         do{pick_target = rdm(1,16);} // Choix de la cible 
@@ -570,7 +551,6 @@ void main(){
         for(int i=0;i<30;i++)
             printf("\n\n\n\n\n\n\n\n\n\n"); // Saute 10 lignes, 300 lignes au total
         
-        clrscr();
         printf("Time's up !\n");
         for(int i = 1; i<=number_player;i++){
             printf("Player %d, enter your amount of movements (enter -1 if impossible):",i);
