@@ -4,6 +4,24 @@
 #include <time.h>
 #include <math.h>
 
+#ifndef COLOURS
+#define COLOURS
+
+// Efface l'écran et replace le curseur en haut à gauche
+#define clrscr() printf("\033[H\033[2J")
+
+// Sélection de couleurs
+#define colour(param) printf("\033[%sm",param)
+/*   param devant être un const char *, vide (identique à "0") ou formé
+     d'une où plusieurs valeurs séparées par des ; parmi
+         0  réinitialisation         1  haute intensité (des caractères)
+         5  clignotement             7  video inversé
+         30, 31, 32, 33, 34, 35, 36, 37 couleur des caractères
+         40, 41, 42, 43, 44, 45, 46, 47 couleur du fond
+            les couleurs, suivant la logique RGB, étant respectivement
+               noir, rouge, vert, jaune, bleu, magenta, cyan et blanc */
+
+#endif
 
 typedef struct
 {
@@ -376,39 +394,38 @@ void go_left (Tile **map, int size_map,int array[4][2], int bot){ /* Déplace un
 int pick_min_array(int *array,int size_array,int *player_index){// Selection au hasard le joueur qui jouera parmi ceux à égalité
 
     int mini = array[0];
-    *player_index = 0;
     for (int i=1; i<size_array; i++){// on parcourt une première fois le tableau pour trouver le minimum
 
-        if (mini==-1 && array[i]>mini){ // dans le cas où array[0] = -1;
+        if (mini==-1 && array[i]>mini) // dans le cas où array[0] = -1;
              mini = array[i];
-            *player_index = i;
-        }
 
-        if (array[i]<mini && array[i] != -1){ // -1 veut dire que le joueur n'a pas trouvé de solutions
+        if (array[i]<mini && array[i] != -1) // -1 veut dire que le joueur n'a pas trouvé de solutions
             mini = array[i];
-            *player_index = i;
-        }
     }
     
-    int count = 0; // Nombre d'égalité
-    for (int i=0; i<size_array; i++){// une deuxième fois pour compter les potentielles égalités
-        if (array[i]==mini)
-            count ++;
+    int *array_mini_index = malloc(size_array*4); // tableau qui contiendra les index pour lesquels array[i] = mini
+    if (array_mini_index==NULL){
+        perror("Error ");
+        exit(EXIT_FAILURE);
     }
 
-    int roll_dices = rdm(1,count); // choix aléatoire du joueurs choisi
-    int i =0;
-    while(count>1){ // une dernière fois pour renvoyer le joueur choisis au hasard parmi les églités
-        if (array[i]==mini){
-            if (roll_dices==1){
-                *player_index = i;
-                break;
-            }
-            roll_dices--;
-            count--;
-        }
-        i++;  
+    if (mini == -1){
+        *player_index = 0;
+        return mini;
     }
+
+    int count = 0; // Nombre d'égalité et tailles réelle du tableau array_mini_index
+    for (int i=0; i<size_array; i++){// une deuxième fois pour remplir le tableau avec les index des égalités
+        if (array[i]==mini){
+            array_mini_index[count]=i;
+            count ++;
+        }
+    }
+
+    int roll_dices = rdm(0,count-1); // choix aléatoire du joueurs choisi
+    *player_index = array_mini_index[roll_dices];
+
+    free(array_mini_index);
 
     return mini;
 }
@@ -420,6 +437,46 @@ void print_scores(int *array, int size_array){ // Affiche le tableau des scores
             printf("s");
         printf("\n");
     }
+}
+
+void print_winner(int *array_score, int size_array){
+    int max = array_score[0];
+    for (int i=1; i<size_array; i++){// on parcourt une première fois le tableau pour trouver le minimum
+        if (array_score[i]>max)
+            max = array_score[i];
+    }
+
+    int *array_winner_index = malloc(size_array*4); // tableau qui contiendra les index pour lesquels array[i] = mini
+    if (array_winner_index==NULL){
+        perror("Error ");
+        exit(EXIT_FAILURE);
+    }
+
+    int count = 0; // Nombre d'égalité et tailles réelle du tableau array_winner_index
+    for (int i=0; i<size_array; i++){// une deuxième fois pour remplir le tableau avec les index des gagnants
+        if (array_score[i]==max){
+            array_winner_index[count]=i;
+            count ++;
+        }
+    }
+
+    if (count==1)
+        printf("The winner is Player %d !\n\n",array_winner_index[0]+1);
+    else{
+        printf("The winners are Players ");
+        int i;
+        for (i = 0; i<count;i++){
+            printf("%d",array_winner_index[i]+1);
+            if (i==count-2){
+                printf(" and ");
+            }
+            else if(i<count-2)
+                printf(", ");
+            }
+        printf(" !\n\n");
+    }
+    
+    free(array_winner_index);
 }
 
 void main(){
@@ -513,6 +570,7 @@ void main(){
         for(int i=0;i<30;i++)
             printf("\n\n\n\n\n\n\n\n\n\n"); // Saute 10 lignes, 300 lignes au total
         
+        clrscr();
         printf("Time's up !\n");
         for(int i = 1; i<=number_player;i++){
             printf("Player %d, enter your amount of movements (enter -1 if impossible):",i);
@@ -524,7 +582,7 @@ void main(){
         minimun_moves = pick_min_array(moves_needed,number_player,&player_index);
         print_map(map,size_map);
 
-        for(int i=1;i<=minimun_moves;i++){
+        for(int i=1;i<=minimun_moves;i++){ // si minimum_moves = -1, la boucle ne fait rien
             do{
             printf("Robot %c, target %d. \n\n",map[array_bot[pick_robot][0]][array_bot[pick_robot][1]].robot,pick_target);
             printf("Player %d, enter movement %d (1 for up, 2 for right, 3 down and 4 left) : ",player_index + 1,i);
@@ -557,11 +615,13 @@ void main(){
                     break;
                 }
             }
+            else if(i==minimun_moves){
+                printf("\nTarget not reached\n");
+                situation = 2;// le joueur a échoué.
+            }
+
             printf("\nMoves remaining : %d\n\n",minimun_moves-i);
         }
-        if (map[array_bot[pick_robot][0]][array_bot[pick_robot][1]].target != pick_target) // si le robot n'est pas sur la 
-        //cible après que tous les mouvements ont été épuisé
-            situation = 2;// le joueur a échoué.
 
         // Attribution des points
         if (minimun_moves==-1){
@@ -576,7 +636,7 @@ void main(){
                     scores_player_array[i] ++;
             }
         }
-        else if (situation == 3)
+        else // situation = 3
             scores_player_array[player_index] --;
         
         print_scores(scores_player_array, number_player); // Affichage des scores
@@ -592,8 +652,8 @@ void main(){
         }
     }
 
-    printf("\n Game ended \n\n Winner is Player %d\n\n",winner+1);
-
+    printf("\nGame ended \n\n");
+    print_winner(scores_player_array,number_player);
 
     for (int i=0; i<size_map;i++){
         free(map[i]);
@@ -603,4 +663,3 @@ void main(){
 }
 
 /*  mettre la map en couleur (custom couleurs pour cibles et robots) */
-// purge
