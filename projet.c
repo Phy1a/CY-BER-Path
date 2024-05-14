@@ -1,8 +1,9 @@
-#include <windows.h>
+// #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <unistd.h>
 
 
 typedef struct
@@ -27,9 +28,9 @@ Tile create_tile(){
     a.right_wall = 0;
     a.left_wall = 0; 
 
-    a.robot = 64;
+    a.robot = 64; // = pas de robot
 
-    a.target = 0;
+    a.target = 0; // = pas de cible
 
     return a;
 }
@@ -37,10 +38,10 @@ Tile create_tile(){
 void better_tile(Tile *a, int row, int column){/* Cette fonction formate les cases pour un affichage épurer, elle attribue des valeurs -1 quand le mur 
 est déjà matérialiser par le mur de la case d'à côté, sans cette fonction on aurait des affichages comme ceci : Case A || Case B 
 avec 2 murs côte à côte*/
-    if (row){
+    if (row){ // si la ligne ne vaut pas 0
         a->upper_wall = -1;// la valeur -1 dit à l'affichage de ne rien afficher
     }
-    if(column){
+    if(column){ // si la colonne ne vaut pas 0
         a->left_wall = -1; 
     }
 }
@@ -81,16 +82,16 @@ void create_map(Tile **map, int size_map){
         }
     }
     
-    for (int column = 0; column<size_map; column++)
+    for (int column = 0; column<size_map; column++) //ajoute les murs du haut de la première ligne
             map[0][column].upper_wall=1;
 
-    for (int column = 0; column<size_map; column++)
+    for (int column = 0; column<size_map; column++) // murs du bas de la dernière ligne
             map[size_map-1][column].lower_wall=1;
     
-    for (int row = 0; row<size_map; row++)
+    for (int row = 0; row<size_map; row++) // murs de gauche de la première colonne
             map[row][0].left_wall=1;
 
-    for (int row = 0; row<size_map; row++)
+    for (int row = 0; row<size_map; row++) // murs de droite de la dernnière colonne
             map[row][size_map-1].right_wall=1;
 }
 
@@ -477,18 +478,20 @@ void main(){
 
     int difficulty_level, timer;
     do{
-        printf("Please enter a difficulty level (1 to 3): ");
+        printf("Please enter a difficulty level (1 to 4): ");
         get_positive_int(&difficulty_level);
     }
-    while(difficulty_level>3);
+    while(difficulty_level>4);
     
     printf("\n");
     if (difficulty_level==1)
-        timer = 60; // en seconde
-    else if (difficulty_level==2)
         timer = 40; // en seconde
-    else
+    else if (difficulty_level==2)
+        timer = 30; // en seconde
+    else if (difficulty_level==3)
         timer = 20; // en seconde
+    else
+        timer = 10; // en seconde
     
 
     int size_map = rdm(15,20); // Choix aléatoire de la taille du plateau de jeu
@@ -545,7 +548,8 @@ void main(){
         
 
         printf("Robot %c, target %d, Time %ds: \n",map[array_bot[pick_robot][0]][array_bot[pick_robot][1]].robot,pick_target,timer);
-        Sleep(timer*1000);// Temps d'observation
+        //Sleep(timer*1000);// Temps d'observation
+        sleep(timer); // pour du linux
 
         // Affichage de masse pour cacher la map
         for(int i=0;i<30;i++)
