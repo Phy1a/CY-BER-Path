@@ -1,4 +1,4 @@
-## Title 1
+## [insert good title]
 This code is basically a strategic game, I'll let u discover it if you wish.
 
 Make sure to compile everything like this :
