@@ -95,8 +95,10 @@ void main(){
         printf("Robot %c, target %d, Time %ds: \n",map[array_bot[pick_robot][0]][array_bot[pick_robot][1]].robot,pick_target,timer);
         // Temps d'observation
         #ifdef _WIN32 // pour Windows
+	#include <windows.h>
             Sleep(timer*1000);
         #elif defined(__linux__)// pour linux
+	#include <unistd.h>
             sleep(timer);
         #endif
 
