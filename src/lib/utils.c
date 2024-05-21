@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
-#include "utils.h"
+#include "../include/utils.h"
 
 int rdm(int mini, int maxi){ // génère un entier aléatoire entre min et max inclus
     return rand() % (maxi - mini + 1) + mini;

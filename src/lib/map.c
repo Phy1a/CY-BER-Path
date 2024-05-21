@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "map.h"
+#include "../include/map.h"
 
 void create_map(Tile **map, int size_map){
     Tile a;

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "tile.h"
+#include "../include/tile.h"
 
 Tile create_tile(){
     Tile a;

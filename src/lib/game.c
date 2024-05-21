@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "game.h"
+#include <stdlib.h>
+#include "../include/game.h"
 
 
 void go_up (Tile **map, int size_map,int array[4][2], int bot){/* Déplace un robot donné vers le haut*/
