@@ -16,10 +16,9 @@ void main(){
     printf("Please enter a number of player : ");
     get_positive_int(&number_player);
     
-    int rounds; 
+    int rounds;
     printf("Please enter a number of rounds : ");
     get_positive_int(&rounds);
-    printf("%d Players, %d rounds\n",number_player, rounds);
 
     int difficulty_level, timer;
     do{
@@ -27,6 +26,7 @@ void main(){
         get_positive_int(&difficulty_level);
     }
     while(difficulty_level>4);
+    printf("%d Players, %d rounds, difficulty %d\n",number_player, rounds, difficulty_level);
     
     printf("\n");
     if (difficulty_level==1)

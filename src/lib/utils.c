@@ -10,18 +10,19 @@ int rdm(int mini, int maxi){ // génère un entier aléatoire entre min et max i
 void getint(int *result){ /* fonction qui demande un entier à l'utilisateur et s'assure de la validité de la réponse*/
     int error_detector = scanf("%d",result);
     while (!error_detector){
-        printf("Please enter a fitting number : ");
+        printf("Please enter a number : ");
         while(getchar() !='\n');  // enlève tous les caractères bloqués dans le tamponn car inutilisé par scanf
         //pour qu'on puisse reentrer une nouvelle valeur dans number_player, sans cela le programme boucle
         error_detector = scanf("%d",result);
     }
+    while(getchar() !='\n'); // clear le buffer au cas où l'utilisateur rentre quelque chose comme "2sjhdfksdhf", le 2 est pris mais pas le reste
 }
 
 void get_positive_int(int *result){ /* fonction qui demande un nombre strictement positif 
 à l'utilisateur et s'assure de la validité de la réponse*/
     getint(result);
     while (*result<=0){
-        printf("Please enter a fitting number : ");
+        printf("Please enter a positive number : ");
         getint(result);
     }
 }
