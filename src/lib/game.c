@@ -58,12 +58,12 @@ void print_scores(int *array, int size_array){ // Affiche le tableau des scores
 
 void print_winner(int *array_score, int size_array){
     int max = array_score[0];
-    for (int i=1; i<size_array; i++){// on parcourt une première fois le tableau pour trouver le minimum
+    for (int i=1; i<size_array; i++){// on parcourt une première fois le tableau pour trouver le maximum
         if (array_score[i]>max)
             max = array_score[i];
     }
 
-    int *array_winner_index = malloc(size_array*4); // tableau qui contiendra les index pour lesquels array[i] = mini
+    int *array_winner_index = malloc(size_array*4); // tableau qui contiendra les index pour lesquels array[i] = maximum
     if (array_winner_index==NULL){
         perror("Error ");
         exit(EXIT_FAILURE);
