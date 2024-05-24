@@ -18,19 +18,19 @@ Tile create_tile(){
     return a;
 }
 
-void better_tile(Tile *a, int row, int column){/* Cette fonction formate les cases pour un affichage épurer, elle attribue des valeurs -1 quand le mur 
-est déjà matérialiser par le mur de la case d'à côté, sans cette fonction on aurait des affichages comme ceci : Case A || Case B 
-avec 2 murs côte à côte*/
-    if (row){ // si la ligne ne vaut pas 0
-        a->upper_wall = -1;// la valeur -1 dit à l'affichage de ne rien afficher
+void better_tile(Tile *a, int row, int column){/* This function formats the tiles for a cleaner display, it assigns values of -1 when the wall 
+is already represented by the wall of the adjacent tile, without this function, we would have displays like this: Tile A || Tile B 
+with 2 walls side by side*/
+    if (row){ // if the row is not 0
+        a->upper_wall = -1;// the value -1 tells the display to show nothing
     }
-    if(column){ // si la colonne ne vaut pas 0
+    if(column){ // if the column is not 0
         a->left_wall = -1; 
     }
 }
 
 #ifdef _WIN32
-void print_colored(char *text, int color) { // permet de faire d'afficher une chaîne de caractère en couleur
+void print_colored(char *text, int color) { // allows displaying a string in color
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, color);
     printf("%s", text);
@@ -43,14 +43,14 @@ void print_colored(const char *text, const char *color_code) {
 #endif
 
 
-void print_tile1(Tile a){// affiche la première ligne de la case a
+void print_tile1(Tile a){// displays the first line of tile a
     if (a.upper_wall==1)
         print_colored("-----", BLUE);
     if (a.upper_wall==0)
         printf("     ");
 }
 
-void print_tile2(Tile a){ // affiche la deuxième ligne de la case a
+void print_tile2(Tile a){ // displays the second line of tile a
 
     if (a.left_wall==1)
         print_colored("| ",BLUE);
@@ -58,16 +58,16 @@ void print_tile2(Tile a){ // affiche la deuxième ligne de la case a
         printf("  ");
     else if (a.left_wall==-1)
         printf(" ");
-    // si a.left_wall==-1 on n'affiche rien
+    // if a.left_wall==-1, show nothing
         
     
-    if(a.robot != 64){ // on ne peut pas utiliser print_colored ici car %c
-        #ifdef _WIN32 // pour Windows
+    if(a.robot != 64){ // cannot use print_colored here because %c
+        #ifdef _WIN32 // for Windows
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(hConsole, RED);
         printf(" %c", a.robot);
         SetConsoleTextAttribute(hConsole, 7);
-        #elif defined(__linux__)// pour linux
+        #elif defined(__linux__)// for linux
         printf("%s %c\033[0m", RED ,a.robot);
         #endif
     }
@@ -75,13 +75,13 @@ void print_tile2(Tile a){ // affiche la deuxième ligne de la case a
         if (a.target<10)
             printf(" ");
         
-        // on ne peut pas utiliser print_colored ici car %d
-        #ifdef _WIN32 // pour Windows
+        // cannot use print_colored here because %d
+        #ifdef _WIN32 // for Windows
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(hConsole, GREEN);
         printf("%d", a.target);
         SetConsoleTextAttribute(hConsole, 7);
-        #elif defined(__linux__)// pour linux
+        #elif defined(__linux__)// for linux
         printf("%s%d\033[0m", GREEN ,a.target);
         #endif
     }
@@ -97,10 +97,10 @@ void print_tile2(Tile a){ // affiche la deuxième ligne de la case a
         printf("  ");
 }
 
-void print_tile3(Tile a){ // affiche la troisième ligne de la case a
+void print_tile3(Tile a){ // displays the third line of tile a
     if (a.lower_wall==1)
         print_colored("-----", BLUE);
     else if (a.lower_wall==0)
         printf("     ");
-    // si a.lower_wall==-1 on n'affiche rien 
+    // if a.lower_wall==-1, show nothing 
 }
