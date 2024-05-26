@@ -48,33 +48,33 @@ The right reading order to read and understand the program :
 
 # map.c :
 
-    implementation of functions declared in the `map. h' header file.  
+implementation of functions declared in the `map. h' header file.  
 
-    1. **`create_map' function:** - This function creates a game map by filling each tile with default values at 
+1. **`create_map' :** - This function creates a game map by filling each tile with default values at 
     using create_tile then adjusting the walls around each tile with better_tile. - It also adds walls to the edges of the card. 
     
-    2. **`print_row function:** - This function displays a line from the map on the screen. - It scans each column in the row and displays each tile using the 
+2. **`print_row' :** - This function displays a line from the map on the screen. - It scans each column in the row and displays each tile using the 
     functions 
     print_tile1, print_tile2 and print_tile3 for each part of the tile. - It also manages the display of walls between lines.
     
-    3. **Function `print_map:** - This function displays the complete map by calling `print_row' for each line of the map. 
+3. ** 'print_map':** - This function displays the complete map by calling `print_row' for each line of the map. 
     
-    4. **Function `is_wall:** - This function checks if a tile has a wall in a specific direction. - Returns 1 if a wall is present and 0 if not. 
+4. ** 'is_wall':** - This function checks if a tile has a wall in a specific direction. - Returns 1 if a wall is present and 0 if not. 
     
-    5. **add_wall function:** - This function adds a wall to a tile in a specific direction. - It also updates the walls of the adjacent tile based on the             direction of the added wall. 
+5. **'add_wall' :** - This function adds a wall to a tile in a specific direction. - It also updates the walls of the adjacent tile based on the             direction of the added wall. 
     
-    6. **Function `is_target_valid¿ :** - This function checks if a given position is valid to place a target. - Checks that the target is not in contact with         other targets or random walls. 
+6. **`is_target_valid' :** - This function checks if a given position is valid to place a target. - Checks that the target is not in contact with         other targets or random walls. 
     
-    7. **Random_wall function:** - This function fills an array with random coordinates for walls. 
+7. **Random_wall :** - This function fills an array with random coordinates for walls. 
     
-    8. **`add_map_side_walls' function:** - This function adds walls to the sides of the board. 
+8. **'add_map_side_walls' :** - This function adds walls to the sides of the board. 
     
-    9. **`add_map_target' function:** - This function adds targets to the map by choosing valid positions. 
+9. **`add_map_target' :** - This function adds targets to the map by choosing valid positions. 
     
-    10. **`add_map_robot' function:** - This function adds robots to the map by choosing valid positions. 
+    10. **`add_map_robot' :** - This function adds robots to the map by choosing valid positions. 
     
     These functions are essential for creating, displaying and manipulating the card in the game. 
-    They are the basis of the functioning of the the interaction of players with the gaming environment. 
+    They are the basis of the functioning of the the interaction of players with the gaming environment.
 
 #game.c : 
 
