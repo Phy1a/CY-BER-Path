@@ -76,3 +76,21 @@ FOR MAP.C :
     These functions are essential for creating, displaying and manipulating the card in the game. 
     They are the basis of the functioning of the the interaction of players with the gaming environment. 
 
+FOR GAME.C : 
+
+    a C implementation of the functions declared in the `game. h' header file.  
+    
+    1. **Motion functions ('go_up', 'go_right', 'go_down', 'go_left'):** - These functions move a robot on the map in different directions: upwards, to the right,     to the bottom and left. - They first check if there is no wall or other robot in the next box, then 
+    move the robot accordingly. - Each function uses a recursive approach to allow the robot to move as long as it 
+    is no obstacle. 
+    
+    2. **`print_scores' function:** - Displays player scores on screen. - Scans the scoreboard and displays each score with the corresponding player ID. 
+    
+    3. **Function `print_winner:** - Determines the winner or winners based on scores. - Finds the maximum score among all players. - Identifies players with this     maximum score and displays them as winners. - In the event of a tie, all players with the maximum score are designated as winners. 
+    
+    4. **Using dynamic memory:** - The `print_winner' function uses dynamic memory allocation to store indexes of 
+    players with the maximum score. - This memory is released at the end of the function to avoid memory leaks. 
+    
+    These functions are an essential logical part of movement management and 
+    determining scores and the winner in the game.
+
