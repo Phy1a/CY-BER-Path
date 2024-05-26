@@ -29,8 +29,7 @@ The right reading order to read and understand the program :
 
 ### tile.c :
 
-This file implements the functions declared in the 'tile.h' header file. Here is an explanation 
-detailed for each function: 
+This file implements the functions declared in the 'tile.h' header file. 
 
 1. 'create_tile' : This function creates a tile with default walls not present ('0'), no robot ('64'), and no target ('0'). 
 
@@ -79,11 +78,9 @@ They are the basis of the functioning of the the interaction of players with the
 
 ### game.c : 
 
-a C implementation of the functions declared in the 'game.h' header file. 
+implementation of the functions declared in the 'game.h' header file. 
 
-1. Motion ('go_up', 'go_right', 'go_down', 'go_left'): These functions move a robot on the map in different directions: upwards, to the right, to the bottom and left. They first check if there is no wall or other robot in the next box, then 
-move the robot accordingly. Each function uses a recursive approach to allow the robot to move as long as it 
-is no obstacle. 
+1. Motion ('go_up', 'go_right', 'go_down', 'go_left'): These functions move a robot on the map in different directions: upwards, to the right, to the bottom and left. They first check if there is no wall or other robot in the next box, then move the robot accordingly. Each function uses a recursive approach to allow the robot to move as long as it is no obstacle. 
 
 2. 'print_scores' : Displays player scores on screen. Scans the scoreboard and displays each score with the corresponding player ID. 
 
@@ -92,8 +89,7 @@ is no obstacle.
 4. Using dynamic memory: The 'print_winner' function uses dynamic memory allocation to store indexes of 
 players with the maximum score. This memory is released at the end of the function to avoid memory leaks. 
 
-These functions are an essential logical part of movement management and 
-determining scores and the winner in the game.
+These functions are an essential logical part of movement management and determining scores and the winner in the game.
 
 ### utils.c : 
 
@@ -106,15 +102,12 @@ maximum included.
 
 2. 'getint: This function asks the user to enter an integer and ensures that the answer is valid. If the user between anything other than an integer, they are prompted to try again until an entry valid be provided. 
 
-3. "get_positive_int" : This function asks the user to enter a strictly positive integer and ensures the validity of the response. It uses the 'getint' function to obtain the user’s input, then checks if it is strictly positive.
+3. 'get_positive_int' : This function asks the user to enter a strictly positive integer and ensures the validity of the response. It uses the 'getint' function to obtain the user’s input, then checks if it is strictly positive.
 
 4. 'pick_min_array' : This function randomly selects the player who will play among those who are tied. It takes as input an array of integers and its size, then finds the minimum value in the table. If the minimum value is '1', it means that no player has found solutions, and the function returns '-1'. If several players have the same minimum value, the function randomly selects one of them. 
  Returns the minimum value found.
 
-These functions are useful for generating random numbers, getting user inputs and 
-randomly select items from a table, and they contribute to the right 
-game operation by allowing interactions with the user and providing 
-equalities resolution mechanisms.
+These functions are useful for generating random numbers, getting user inputs and randomly select items from a table, and they contribute to the right game operation by allowing interactions with the user and providing equalities resolution mechanisms.
 
 
 ### main.c :
@@ -125,17 +118,12 @@ control robots to hit targets on a map
 1. Initialization and Configuration: The main() function starts by initializing the random number generator in 
 using the system clock ('srand(time(NULL))'), which guarantees sequences of numbers 
 
-different random at each run. Users are asked to enter the number of players, the number of rounds and the 
-level of difficulty. Checks are made to ensure that the values entered 
+different random at each run. Users are asked to enter the number of players, the number of rounds and the level of difficulty. Checks are made to ensure that the values entered 
 are valid and within the specified ranges. 
 
-2. Creating the Game Card: The size of the card is determined randomly in a predefined range. A two - dimensional array of tiles is allocated in memory to represent the map. - Walls, targets and robots are randomly placed on the map using 
-functions provided in the corresponding header files. The map is displayed to allow players to view the game environment. 
+2. Creating the Game Card: The size of the card is determined randomly in a predefined range. A two - dimensional array of tiles is allocated in memory to represent the map. - Walls, targets and robots are randomly placed on the map using functions provided in the corresponding header files. The map is displayed to allow players to view the game environment. 
 
-3. Game Rounds Progress: For each game round, a robot is randomly selected and a target is 
-designated for this round. Players have limited time to observe the current configuration before taking 
-their movement decisions. The movements proposed by the players are recorded and evaluated to determine the 
-minimum number of moves required to reach target. Each player moves in order, following the rules of the game. Player scores are updated based on the outcome of each round. 
+3. Game Rounds Progress: For each game round, a robot is randomly selected and a target is designated for this round. Players have limited time to observe the current configuration before taking their movement decisions. The movements proposed by the players are recorded and evaluated to determine the minimum number of moves required to reach target. Each player moves in order, following the rules of the game. Player scores are updated based on the outcome of each round. 
 
 4. Winner Determination: At the end of all rounds, the player with the highest score is declared the winner. The winner is displayed on the screen to inform players of the final outcome of the game. 
 
