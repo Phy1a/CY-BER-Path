@@ -24,7 +24,7 @@ The right reading order to read and understand the program :
 - utile.c
 - main.c
 
-# Fonctions used in these files :
+## Fonctions used in these files :
 
   # tile.c :
   
