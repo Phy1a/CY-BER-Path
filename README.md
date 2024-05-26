@@ -26,7 +26,7 @@ The right reading order to read and understand the program :
 
 ## Fonctions used in these files :
 
-  # tile.c :
+### tile.c :
   
 This file implements the functions declared in the `tile. h' header file. Here is an explanation 
 detailed for each function: 
@@ -46,7 +46,7 @@ These functions are crucial for the visual representation of tiles in the game. 
 correctly initialize a tile, adjust it for optimal display and display each part 
 tile with appropriate elements, such as walls, robots and targets. 
 
-# map.c :
+### map.c :
 
 implementation of functions declared in the `map. h' header file.  
 
@@ -76,7 +76,7 @@ print_tile1, print_tile2 and print_tile3 for each part of the tile. - It also ma
 These functions are essential for creating, displaying and manipulating the card in the game. 
 They are the basis of the functioning of the the interaction of players with the gaming environment.
 
-# game.c : 
+### game.c : 
 
 a C implementation of the functions declared in the `game. h' header file.  
 
@@ -94,7 +94,7 @@ players with the maximum score. - This memory is released at the end of the func
 These functions are an essential logical part of movement management and 
 determining scores and the winner in the game.
 
-# utils.c : 
+### utils.c : 
 
 This file contains the implementations of the functions declared in the `utils. h' header file. 
 
@@ -121,7 +121,7 @@ randomly select items from a table, and they contribute to the right
 game operation by allowing interactions with the user and providing 
 equalities resolution mechanisms.
 
-# main.c :
+### main.c :
 
 The code provided is a C program that implements a board game where players 
 control robots to hit targets on a map 
