@@ -36,7 +36,7 @@ no target (`0').
 
 2. 'better_tile'  - This function adjusts the walls of a tile for a cleaner display. - assigns a value of -1 to walls that are already represented      by the adjacent tile wall. 
 
-3.'print_colored' function: - This function displays a color string. - Uses ANSI color codes on Linux systems and library functions 
+3. 'print_colored' function: - This function displays a color string. - Uses ANSI color codes on Linux systems and library functions 
 Windows (GetStdHandle and SetConsoleTextAttribute) on Windows. 
 
 4. Functions 'print_tile1', 'print_tile2', 'print_tile3':** - These functions display the first, second and third row of a tile, respectively.
