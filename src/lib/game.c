@@ -4,10 +4,10 @@
 
 void go_up (Tile **map, int size_map,int array[4][2], int bot){/* Moves a given robot up*/
     // If there are no walls straight ahead or a robot in the next tile, move up one tile
-    if (!(is_wall(map, size_map, array[bot][0], array[bot][1], 1)) && map[array[bot][0]-1][array[bot][1]].robot == 64){
-        map[array[bot][0]-1][array[bot][1]].robot = map[array[bot][0]][array[bot][1]].robot;
-        map[array[bot][0]][array[bot][1]].robot = 64;
-        array[bot][0] -= 1;
+    if (!(is_wall(map, size_map, array[bot][0], array[bot][1], 1)) && map[array[bot][0]-1][array[bot][1]].robot == 64){ // if no wall and no bot
+        map[array[bot][0]-1][array[bot][1]].robot = map[array[bot][0]][array[bot][1]].robot; // we copy the robot in the upper tile
+        map[array[bot][0]][array[bot][1]].robot = 64; // reset the tile left behind
+        array[bot][0] -= 1; // we update the robot coordinate array
 
         return go_up(map, size_map, array, bot); // recursive
     }
@@ -15,10 +15,10 @@ void go_up (Tile **map, int size_map,int array[4][2], int bot){/* Moves a given 
 
 void go_right (Tile **map, int size_map, int array[4][2], int bot){ /* Moves a given robot to the right*/
     // If there are no walls straight ahead or a robot in the next tile, move right one tile
-    if (!(is_wall(map, size_map, array[bot][0], array[bot][1], 2)) && map[array[bot][0]][array[bot][1]+1].robot == 64){
-        map[array[bot][0]][array[bot][1]+1].robot = map[array[bot][0]][array[bot][1]].robot;
-        map[array[bot][0]][array[bot][1]].robot = 64;
-        array[bot][1] += 1;
+    if (!(is_wall(map, size_map, array[bot][0], array[bot][1], 2)) && map[array[bot][0]][array[bot][1]+1].robot == 64){ // if no wall and no bot
+        map[array[bot][0]][array[bot][1]+1].robot = map[array[bot][0]][array[bot][1]].robot; // we copy the robot in the right tile
+        map[array[bot][0]][array[bot][1]].robot = 64; // reset the tile left behind
+        array[bot][1] += 1; // we update the robot coordinate array
 
         return go_right(map, size_map, array, bot); // recursive
     }
@@ -26,10 +26,10 @@ void go_right (Tile **map, int size_map, int array[4][2], int bot){ /* Moves a g
 
 void go_down (Tile **map, int size_map, int array[4][2], int bot){ /* Moves a given robot down*/
     // If there are no walls straight ahead or a robot in the next tile, move down one tile
-    if (!is_wall(map, size_map, array[bot][0], array[bot][1], 3) && map[array[bot][0]+1][array[bot][1]].robot == 64){
+    if (!is_wall(map, size_map, array[bot][0], array[bot][1], 3) && map[array[bot][0]+1][array[bot][1]].robot == 64){ // if no wall and no bot
         map[array[bot][0]+1][array[bot][1]].robot = map[array[bot][0]][array[bot][1]].robot;
-        map[array[bot][0]][array[bot][1]].robot = 64;
-        array[bot][0] += 1;
+        map[array[bot][0]][array[bot][1]].robot = 64; // reset the tile left behind
+        array[bot][0] += 1; // we update the robot coordinate array
 
         return go_down(map, size_map, array, bot); // recursive
     }
@@ -37,10 +37,10 @@ void go_down (Tile **map, int size_map, int array[4][2], int bot){ /* Moves a gi
 
 void go_left (Tile **map, int size_map, int array[4][2], int bot){ /* Moves a given robot to the left*/
     // If there are no walls straight ahead or a robot in the next tile, move left one tile
-    if (!is_wall(map, size_map, array[bot][0], array[bot][1], 4) && map[array[bot][0]][array[bot][1]-1].robot == 64){
+    if (!is_wall(map, size_map, array[bot][0], array[bot][1], 4) && map[array[bot][0]][array[bot][1]-1].robot == 64){ // if no wall and no bot
         map[array[bot][0]][array[bot][1]-1].robot = map[array[bot][0]][array[bot][1]].robot;
-        map[array[bot][0]][array[bot][1]].robot = 64;
-        array[bot][1] -= 1;
+        map[array[bot][0]][array[bot][1]].robot = 64; // reset the tile left behind
+        array[bot][1] -= 1; // we update the robot coordinate array
 
         return go_left(map, size_map, array, bot); // recursive
     }
@@ -82,7 +82,7 @@ void print_winner(int *array_score, int size_array){
         printf("The winners are Players ");
         int i;
         for (i = 0; i < count; i++){
-            printf("%d", array_winner_index[i] + 1);
+            printf("%d", array_winner_index[i] + 1); // print the number of each player in the winner array
             if (i == count - 2){
                 printf(" and ");
             }

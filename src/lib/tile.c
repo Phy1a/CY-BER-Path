@@ -4,16 +4,16 @@
 Tile create_tile(){
     Tile a;
 
-    // 0 = pas de mur, 1 = mur et -1 = même mur que la case adjacente
-    // à l'initilisation d'une case, celle-ci n'a as de mur
+    // 0 = no wall, 1 = wall and -1 = same wall as the adjacent square
+    // when a square is initiated, it has no wall
     a.upper_wall = 0;  
     a.lower_wall = 0; 
     a.right_wall = 0;
     a.left_wall = 0; 
 
-    a.robot = 64; // = pas de robot
+    a.robot = 64; // = no robot
 
-    a.target = 0; // = pas de cible
+    a.target = 0; // = no target
 
     return a;
 }

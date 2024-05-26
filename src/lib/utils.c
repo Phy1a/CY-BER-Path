@@ -47,6 +47,7 @@ int pick_min_array(int *array, int size_array, int *player_index){// Randomly se
 
     if (mini == -1){
         *player_index = 0;
+        free(array_mini_index);
         return mini;
     }
 
