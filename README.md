@@ -94,3 +94,29 @@ FOR GAME.C :
     These functions are an essential logical part of movement management and 
     determining scores and the winner in the game.
 
+FOR UTILE.C : 
+
+    This file contains the implementations of the functions declared in the `utils. h' header file. 
+    
+    Here is a detailed explanation of each function: 
+    
+    1. **rdm function:** - This function generates a random integer between a minimum value and a value 
+    maximum included. 
+    
+    2. **Function `getint:** - This function asks the user to enter an integer and ensures that the answer is valid. - If the user between anything other than an     integer, they are prompted to try again until an entry 
+    valid be provided. 
+    
+    3. **"get_positive_int" function:** - This function asks the user to enter a strictly positive integer and ensures the 
+    validity of the response. - It uses the `getint' function to obtain the user’s input, then checks if it is 
+    strictly positive.
+    
+    4. **Function `pick_min_array' :** - This function randomly selects the player who will play among those who are tied. - It takes as input an array of            integers and its size, then finds the minimum value in the 
+    table. - If the minimum value is `-1', it means that no player has found solutions, and the function 
+    returns `-1`. - If several players have the same minimum value, the function randomly selects one 
+    of them. 
+    
+    - Returns the minimum value found. 
+    These functions are useful for generating random numbers, getting user inputs and 
+    randomly select items from a table, and they contribute to the right 
+    game operation by allowing interactions with the user and providing 
+    equalities resolution mechanisms.
