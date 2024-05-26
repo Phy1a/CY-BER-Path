@@ -120,3 +120,27 @@ FOR UTILE.C :
     randomly select items from a table, and they contribute to the right 
     game operation by allowing interactions with the user and providing 
     equalities resolution mechanisms.
+
+FOR MAIN.C :
+
+    The code provided is a C program that implements a board game where players 
+    control robots to hit targets on a map 
+    
+    1. **Initialization and Configuration:** - The main() function starts by initializing the random number generator in 
+    using the system clock (`srand(time(NULL))'), which guarantees sequences of numbers 
+    
+    different random at each run. - Users are asked to enter the number of players, the number of rounds and the 
+    level of difficulty. Checks are made to ensure that the values entered 
+    are valid and within the specified ranges. 
+    
+    2. **Creating the Game Card:** - The size of the card is determined randomly in a predefined range. - A two-dimensional array of tiles is allocated in memory     to represent the map. - Walls, targets and robots are randomly placed on the map using 
+    functions provided in the corresponding header files. - The map is displayed to allow players to view the game environment. 
+    
+    3. **Game Rounds Progress:** - For each game round, a robot is randomly selected and a target is 
+    designated for this round. - Players have limited time to observe the current configuration before taking 
+    their movement decisions. - The movements proposed by the players are recorded and evaluated to determine the 
+    minimum number of moves required to reach target. - Each player moves in order, following the rules of the game. - Player scores are updated based on the         outcome of each round. 
+    
+    4. **Winner Determination:** - At the end of all rounds, the player with the highest score is declared the winner. - The winner is displayed on the screen to     inform players of the final outcome of the game. 
+    
+    5. **Free Allocated Memory:** - Once the game is over, the memory allocated for st
