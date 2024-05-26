@@ -21,7 +21,7 @@ The right reading order to read and understand the program :
 - tile.c
 - map.c
 - game.c
-- utile.c
+- utils.c
 - main.c
 
 ## Fonctions used in these files :
@@ -34,9 +34,9 @@ detailed for each function:
 1. 'create_tile'  - This function creates a tile with default walls not present (`0'), no robot (`64'), and 
 no target (`0'). 
 
-2. Better_tile  - This function adjusts the walls of a tile for a cleaner display. - assigns a value of -1 to walls that are already represented      by the adjacent tile wall. 
+2. 'better_tile'  - This function adjusts the walls of a tile for a cleaner display. - assigns a value of -1 to walls that are already represented      by the adjacent tile wall. 
 
-3.`print_colored' function: - This function displays a color string. - Uses ANSI color codes on Linux systems and library functions 
+3.'print_colored' function: - This function displays a color string. - Uses ANSI color codes on Linux systems and library functions 
 Windows (GetStdHandle and SetConsoleTextAttribute) on Windows. 
 
 4. Functions 'print_tile1', 'print_tile2', 'print_tile3':** - These functions display the first, second and third row of a tile, respectively.
@@ -50,10 +50,10 @@ tile with appropriate elements, such as walls, robots and targets.
 
 implementation of functions declared in the `map. h' header file.  
 
-1. `create_map' : - This function creates a game map by filling each tile with default values at 
+1. 'create_map' : - This function creates a game map by filling each tile with default values at 
 using create_tile then adjusting the walls around each tile with better_tile. - It also adds walls to the edges of the card. 
 
-2. `print_row' : - This function displays a line from the map on the screen. - It scans each column in the row and displays each tile using the 
+2. 'print_row' : - This function displays a line from the map on the screen. - It scans each column in the row and displays each tile using the 
 functions 
 print_tile1, print_tile2 and print_tile3 for each part of the tile. - It also manages the display of walls between lines.
 
@@ -63,15 +63,15 @@ print_tile1, print_tile2 and print_tile3 for each part of the tile. - It also ma
 
 5. 'add_wall' : - This function adds a wall to a tile in a specific direction. - It also updates the walls of the adjacent tile based on the                     direction of the added wall. 
 
-6. `is_target_valid' : - This function checks if a given position is valid to place a target. - Checks that the target is not in contact with         other       targets or random walls. 
+6. 'is_target_valid' : - This function checks if a given position is valid to place a target. - Checks that the target is not in contact with         other       targets or random walls. 
 
-7. Random_wall : - This function fills an array with random coordinates for walls. 
+7. 'random_wall' : - This function fills an array with random coordinates for walls. 
 
 8. 'add_map_side_walls' : - This function adds walls to the sides of the board. 
 
-9. `add_map_target' : - This function adds targets to the map by choosing valid positions. 
+9. 'add_map_target' : - This function adds targets to the map by choosing valid positions. 
 
-10. `add_map_robot' : - This function adds robots to the map by choosing valid positions. 
+10. 'add_map_robot' : - This function adds robots to the map by choosing valid positions. 
 
 These functions are essential for creating, displaying and manipulating the card in the game. 
 They are the basis of the functioning of the the interaction of players with the gaming environment.
@@ -103,19 +103,13 @@ Here is a detailed explanation of each function:
 1. rdm  - This function generates a random integer between a minimum value and a value 
 maximum included. 
 
-2. `getint: - This function asks the user to enter an integer and ensures that the answer is valid. - If the user between anything other than an     integer,     they are prompted to try again until an entry 
-valid be provided. 
+2. `getint: - This function asks the user to enter an integer and ensures that the answer is valid. - If the user between anything other than an integer, they are prompted to try again until an entry valid be provided. 
 
-3. "get_positive_int" : - This function asks the user to enter a strictly positive integer and ensures the 
-validity of the response. - It uses the `getint' function to obtain the user’s input, then checks if it is 
-strictly positive.
+3. "get_positive_int" : - This function asks the user to enter a strictly positive integer and ensures the validity of the response. - It uses the `getint' function to obtain the user’s input, then checks if it is strictly positive.
 
-4. Function `pick_min_array' : - This function randomly selects the player who will play among those who are tied. - It takes as input an array of                integers and its size, then finds the minimum value in the 
-table. - If the minimum value is `-1', it means that no player has found solutions, and the function 
-returns `-1`. - If several players have the same minimum value, the function randomly selects one 
-of them. 
+4. 'pick_min_array' : - This function randomly selects the player who will play among those who are tied. - It takes as input an array of integers and its size, then finds the minimum value in the table. - If the minimum value is '-1', it means that no player has found solutions, and the function returns '-1'. - If several players have the same minimum value, the function randomly selects one of them. 
+- Returns the minimum value found.
 
-- Returns the minimum value found. 
 These functions are useful for generating random numbers, getting user inputs and 
 randomly select items from a table, and they contribute to the right 
 game operation by allowing interactions with the user and providing 
