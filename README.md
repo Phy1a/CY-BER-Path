@@ -39,7 +39,7 @@ no target (`0').
 3.`print_colored' function: - This function displays a color string. - Uses ANSI color codes on Linux systems and library functions 
 Windows (GetStdHandle and SetConsoleTextAttribute) on Windows. 
 
-4. Functions `print_tile1', `print_tile2', `print_tile3`:** - These functions display the first, second and third row of a tile, respectively.
+4. Functions 'print_tile1', 'print_tile2', 'print_tile3':** - These functions display the first, second and third row of a tile, respectively.
 
 - They take into account the walls and special elements (robot, target) present on the tile. - They use print_colored to display text in colour according to         the platform. 
 These functions are crucial for the visual representation of tiles in the game. They allow 
