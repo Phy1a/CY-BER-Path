@@ -10,7 +10,7 @@ Check file paths if you encounter any error.
 
 For linux :
 
-    gcc -o my_programm main.c lib/utils.c lib/map.c lib/tile.c lib/game.c
+    gcc -o my_program main.c lib/utils.c lib/map.c lib/tile.c lib/game.c
 
 
 It doesn't need any special extention except for a C code runner and all the files contained in lib's folder, include's folder and main.c.
