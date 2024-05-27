@@ -4,7 +4,7 @@ Make sure to compile everything like this :
 
 For windows : 
 
-    Use the makefile with the following commands :     `make` to create the executable
+Use the makefile with the following commands : `make` to create the executable
     `.\exec` to run the program
     `make clean` to delete temporary files
 
@@ -15,7 +15,7 @@ Check file paths if you encounter any error.
 
 For linux :
 
-    Use the makefile with the following commands :      `make` to create the executable
+Use the makefile with the following commands : `make` to create the executable
      `./exec` to run the program
      `make clean` to delete temporary files
 
